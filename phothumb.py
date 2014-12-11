@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from PIL import Image, ImageFile
-from StringIO import StringIO
+import io
 import sys
 
 
@@ -16,15 +16,12 @@ def thumbnail(
     # there are some images with exif blocks > 64kB
     ImageFile.MAXBLOCK = 2**20
 
-    if type(image) == 'file':
+    try:
         image = Image.open(image)
-    else:
-        try:
-            image.format
-        except:
-            image.close()
-            print "Unexpected error:", sys.exc_info()[0]
-            raise
+    except:
+        image.close()
+        print("Unexpected error:", sys.exc_info()[0])
+        raise
 
     if thumb_format is None:
         thumb_format = image.format
@@ -45,7 +42,7 @@ def thumbnail(
     elif(image.size[1] >= thumb_max_height):
         image = image.crop((0, 0, image.size[0], thumb_max_height))
 
-    tmp_file = StringIO()
+    tmp_file = io.BytesIO()
     image.save(tmp_file, thumb_format)
     tmp_file.seek(0)
     return tmp_file
