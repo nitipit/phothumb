@@ -12,4 +12,7 @@ setup(
     license='MIT',
     keywords='photo image thumbnail',
     install_requires=['pillow',],
+    classifiers=[
+        'Programming Language :: Python :: 3',
+    ]
 )
