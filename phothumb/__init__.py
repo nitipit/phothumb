@@ -43,6 +43,8 @@ def _thumbnail(
     elif(image.size[1] >= max_height):
         image = image.crop((0, 0, image.size[0], max_height))
 
+    image.format = f
+
     if t == 1:
         return image
 
