@@ -9,8 +9,7 @@ def _thumbnail(
         image,
         width,
         max_height=None,
-        f=None,
-        t=0):
+        f=None,):
 
     # Image.load() wont raise an error if image is truncated
     ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -31,6 +30,10 @@ def _thumbnail(
         exif_orientation = image._getexif()[274]
         if exif_orientation == 6:
             image = image.transpose(Image.ROTATE_270)
+        if exif_orientation == 3:
+            image = image.transpose(Image.ROTATE_180)
+        if exif_orientation == 8:
+            image = image.transpose(Image.ROTATE_90)
     except:
         pass
 
@@ -43,18 +46,10 @@ def _thumbnail(
     elif(image.size[1] >= max_height):
         image = image.crop((0, 0, image.size[0], max_height))
 
-    image.format = f
-
-    if t == 1:
-        return image
-
     tmp_file = io.BytesIO()
     image.save(tmp_file, f)
     tmp_file.seek(0)
     return tmp_file
 
-def get_bytes(image, width, max_height=None, f=None):
-    return _thumbnail(image, width, max_height, f, t=0)
-
 def get(image, width, max_height=None, f=None):
-    return _thumbnail(image, width, max_height, f, t=1)
+    return _thumbnail(image, width, max_height, f)
