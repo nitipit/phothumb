@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='phothumb',
-    version='1.1',
+    version='1.2',
     packages=find_packages(),
     description='Photo thumbnail library based on Pillow',
     author='Nitipit Nontasuwan',

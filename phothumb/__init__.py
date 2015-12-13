@@ -7,10 +7,12 @@ import sys
 
 def _thumbnail(
         image,
-        width,
+        width=200,
         max_height=None,
         f=None,):
 
+    if width <= 0:
+        width = 200 #defalt width
     # Image.load() wont raise an error if image is truncated
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     # there are some images with exif blocks > 64kB
