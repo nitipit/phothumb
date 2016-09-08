@@ -37,7 +37,8 @@ def _thumbnail(
         if exif_orientation == 8:
             image = image.transpose(Image.ROTATE_90)
     except:
-        pass
+        print('Unexpected error : ', sys.exc_info()[0])
+        raise
 
     ratio = float(image.size[0]) / width
     height = int(image.size[1] / ratio)
