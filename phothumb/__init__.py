@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
 from PIL import Image, ImageFile
-import io
-import sys
+import io, sys
 
 
 def _thumbnail(
