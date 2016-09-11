@@ -35,11 +35,7 @@ def _thumbnail(
             image = image.transpose(Image.ROTATE_180)
         if exif_orientation == 8:
             image = image.transpose(Image.ROTATE_90)
-    except TypeError:
-        # ignore if image exif is None
-        pass
-    except AttributeError:
-        # ignore if image doesn't have ._getexif() 
+    except (TypeError, AttributeError, KeyError) as e:
         pass
     except:
         print('Unexpected : ', sys.exc_info()[0])
